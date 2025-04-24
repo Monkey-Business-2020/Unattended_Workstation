@@ -270,6 +270,14 @@
                     
                     <div class="what-happened">
                         <h2>What Just Happened?</h2>
+                        <div class="system-info">
+                            <h3>System Information Captured:</h3>
+                            <ul>
+                                <li><strong>Computer Name:</strong> <span id="system-hostname">Loading...</span></li>
+                                <li><strong>User Account:</strong> <span id="system-username">Loading...</span></li>
+                                <li><strong>Time of Compromise:</strong> <span id="compromise-time">Loading...</span></li>
+                            </ul>
+                        </div>
                         <p>Your workstation was left unattended and unlocked. In that time, an unauthorised USB device was connected to your computer and executed code without your knowledge or consent.</p>
                         <p>This page was opened automatically through a script injected by that device.</p>
                         <p><strong>If this had been a real attack an attacker could have:</p></strong>
@@ -371,6 +379,26 @@
         
         window.addEventListener('load', adjustFontSizes);
         window.addEventListener('resize', adjustFontSizes);
+
+        // Add to your existing script section
+        window.addEventListener('load', function() {
+            // Parse URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const hostname = urlParams.get('hostname') || 'Unknown';
+            const username = urlParams.get('username') || 'Unknown';
+            const timestamp = urlParams.get('timestamp') || 'Unknown';
+            
+            // Update elements on the page
+            if (document.getElementById('system-hostname')) {
+                document.getElementById('system-hostname').textContent = hostname;
+            }
+            if (document.getElementById('system-username')) {
+                document.getElementById('system-username').textContent = username;
+            }
+            if (document.getElementById('compromise-time')) {
+                document.getElementById('compromise-time').textContent = timestamp;
+            }
+        });
     </script>
 </body>
 </html>

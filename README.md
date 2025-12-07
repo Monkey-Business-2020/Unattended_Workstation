@@ -62,7 +62,7 @@ If target machines are slow (heavy endpoint protection, etc.), increase the dela
 Update the URL in the payload files to match your deployment:
 
 ```
-https://workstation-assessment.cyberviking.uk
+https://your-domain.com
 ```
 
 ## URL Parameters

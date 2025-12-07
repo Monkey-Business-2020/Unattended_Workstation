@@ -1,1 +1,0 @@
-# A simple sample of scripts. Help yourself. 

@@ -1,0 +1,7 @@
+services:
+  web:
+    build: .
+    container_name: unattended-workstation-demo
+    ports:
+      - "8085:80"
+    restart: unless-stopped

